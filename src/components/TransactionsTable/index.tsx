@@ -1,8 +1,15 @@
-import { Countainer } from "./style";
+import React from "react";
+import { useTransactions } from "../../hooks/useTransactions";
+
+import { Container } from "./style";
+
 
 export function TransactionsTable () {
+
+    const {transactions} = useTransactions();
+
     return (
-        <Countainer>
+        <Container>
             <table>
                 <thead>
                     <tr>
@@ -13,21 +20,25 @@ export function TransactionsTable () {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Desenvolvimento de Website</td>
-                        <td className="deposit">R$12.000</td>
-                        <td>Desenvolvimento</td>
-                        <td>01/11/2021</td>
-                    </tr>
-                    <tr>
-                        <td>Aluguel</td>
-                        <td className="withdrawn">- R$1.000</td>
-                        <td>Casa</td>
-                        <td>30/10/2021</td>
-                    </tr>
+                    {transactions.map(transaction => (                            
+                        <tr key={transaction.id}>
+                            <td>{transaction.title}</td>
+                            <td className={transaction.type}>
+                                {new Intl.NumberFormat('pt-BR', {
+                                    style: 'currency',
+                                    currency: 'BRL',
+                                }).format(transaction.amount)}
+                            </td>
+                            <td>{transaction.category}</td>
+                            <td>
+                            {new Intl.DateTimeFormat('pt-BR').format(
+                                new Date(transaction.createdAt))}
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
-        </Countainer>
+        </Container>
     )
 
 }

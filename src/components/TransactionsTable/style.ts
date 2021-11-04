@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Countainer = styled.div `
+export const Container = styled.div `
     margin-top: 4rem;
 
 
@@ -31,7 +31,7 @@ export const Countainer = styled.div `
                 color: var(--green);
             }
 
-            &.withdrawn {
+            &.withdraw {
                 color: var(--red);
             }
         }
